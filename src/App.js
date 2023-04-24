@@ -1,3 +1,4 @@
+import React from 'react';
 import Card from './components/Card';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
@@ -33,7 +34,8 @@ function App() {
               title={obj.title}
               price={obj.price}
               imageUrl={obj.imageUrl}
-              onClick={() => console.log(obj)}
+              onFavorite={() => console.log('Добавили в закладки')}
+              onPlus={() => console.log('Нажали плюс')}
             />
           ))}
         </div> 
