@@ -28,7 +28,9 @@ function Header(props) {
             </Link>
           </li>
           <li>
-            <img width={20} height={20} src="/img/user.svg" alt="Пользователь" />
+            <Link to="/orders">
+              <img width={20} height={20} src="/img/user.svg" alt="Пользователь" />
+            </Link>
           </li>
         </ul>
     </header>

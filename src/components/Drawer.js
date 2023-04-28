@@ -66,7 +66,7 @@ function Drawer({onClose, onRemove, items = []}) {
                             <li className="d-flex">
                             <span>Налог 5%:</span>
                             <div></div>
-                            <b>{ totalPrice * 0.05 } руб.</b>
+                            <b>{ Math.floor(totalPrice * 0.05) } руб.</b>
                             </li>
                         </ul>
                         <button disabled={isLoading} onClick={onClickOrder} className="greenButton">Оформить заказ<img src="/img/arrow.svg" alt="Arrow" /></button>
