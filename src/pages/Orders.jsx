@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Card from '../components/Card';
+import { Link } from 'react-router-dom';
 //import AppContext from '../context';
 
 function Orders() {
@@ -29,7 +30,21 @@ function Orders() {
             <div className="d-flex align-center justify-between mb-40 pr-30">
                 <h1>Мои заказы</h1>
             </div>
-
+            {/* подумать над условием */}
+            {(orders.length === 0) ? (
+            <div className="favoriteEmpty d-flex align-center justify-center flex-column flex">
+                <img className="mt-50" src="/img/order-smile.jpg" alt="Empty-cart" />
+                <h2>У вас нет заказов</h2>
+                <p className="opacity-6">Вы нищеброд?</p>
+                <p className="opacity-6">Оформите хотя бы один заказ.</p>
+                <Link to="/">
+                    <button className="greenButton">
+                        <img src="/img/arrow.svg" alt="Arrow" />
+                        Вернуться назад
+                    </button>
+                </Link>
+            </div>
+            ) : (
             <div className="d-flex flex-wrap">
                 {(isLoading ? [...Array(12)] : orders).map((item, index) => (
                     <Card 
@@ -39,6 +54,7 @@ function Orders() {
                     />
                 ))}
             </div> 
+            )}
         </div>
     )
 }

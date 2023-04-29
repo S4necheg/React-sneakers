@@ -19,15 +19,19 @@ function App() {
 
   React.useEffect(() => {
     async function fetchData() { 
-      const cartResponse = await axios.get('http://localhost:3001/cart');
-      const favoritesResponse = await axios.get('http://localhost:3001/favorites');
-      const itemsResponse = await axios.get('http://localhost:3001/items');
-
-      setIsLoading(false);
-
-      setCartItems(cartResponse.data);
-      setFavorites(favoritesResponse.data);
-      setItems(itemsResponse.data);
+      try {
+        const cartResponse = await axios.get('http://localhost:3001/cart');
+        const favoritesResponse = await axios.get('http://localhost:3001/favorites');
+        const itemsResponse = await axios.get('http://localhost:3001/items');
+  
+        setIsLoading(false);
+  
+        setCartItems(cartResponse.data);
+        setFavorites(favoritesResponse.data);
+        setItems(itemsResponse.data);
+      } catch (error) {
+        alert('Ошибка при запросе данных')
+      }
     }
 
     fetchData();
@@ -43,13 +47,17 @@ function App() {
         setCartItems((prev) => [...prev, obj])
       }
     } catch (error) {
-      
+      alert('Ошибка при добавлении в корзину')
     }
   };
 
   const onRemoveItem = (id) => {
-    axios.delete(`http://localhost:3001/cart/${id}`);
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    try {
+      axios.delete(`http://localhost:3001/cart/${id}`);
+      setCartItems((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      alert('Ошибка при удалении из корзины')
+    }
   };
 
   const onAddToFavorite = async (obj) => {
