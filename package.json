@@ -25,7 +25,7 @@
     "eject": "react-scripts eject",
     "server": "json-server -w server/data.json -p 3001",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build -r https://github.com/S4necheg/React-sneakers"
   },
   "eslintConfig": {
     "extends": [
