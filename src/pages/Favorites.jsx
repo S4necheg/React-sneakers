@@ -10,7 +10,7 @@ function Favorites({}) {
     return (
         <div className="content p-40">
             {/* <div className="d-flex mb-40">
-                <img width={960} height={300} src="/img/slider1.svg" alt="Slider"/>
+                <img width={960} height={300} src="img/slider1.svg" alt="Slider"/>
             </div> */}
             <div className="d-flex align-center justify-between mb-40 pr-30">
                 <h1>Мои закладки</h1>
@@ -18,12 +18,12 @@ function Favorites({}) {
             {/* подумать над условием */}
             {(favorites.length === 0) ? (
             <div className="favoriteEmpty d-flex align-center justify-center flex-column flex">
-                <img className="mt-50" src="/img/favorite-smile.jpg" alt="Empty-cart" />
+                <img className="mt-50" src="img/favorite-smile.jpg" alt="Empty-cart" />
                 <h2>Закладок нет :(</h2>
                 <p className="opacity-6">Вы ничего не добавляли в закладки</p>
-                <Link to="/">
+                <Link to="/React-sneakers/">
                     <button className="greenButton">
-                        <img src="/img/arrow.svg" alt="Arrow" />
+                        <img src="img/arrow.svg" alt="Arrow" />
                         Вернуться назад
                     </button>
                 </Link>

@@ -20,9 +20,12 @@ function App() {
   React.useEffect(() => {
     async function fetchData() { 
       try {
-        const cartResponse = await axios.get('http://localhost:3001/cart');
-        const favoritesResponse = await axios.get('http://localhost:3001/favorites');
-        const itemsResponse = await axios.get('http://localhost:3001/items');
+        //const cartResponse = await axios.get('http://localhost:3001/cart');
+        const cartResponse = await axios.get('https://6447bb067bb84f5a3e47276f.mockapi.io/cart')
+        //const favoritesResponse = await axios.get('http://localhost:3001/favorites');
+        const favoritesResponse = await axios.get('https://644feeb1b61a9f0c4d2f2f9d.mockapi.io/favorites');
+        //const itemsResponse = await axios.get('http://localhost:3001/items');
+        const itemsResponse = await axios.get('https://6447bb067bb84f5a3e47276f.mockapi.io/Items');
   
         setIsLoading(false);
   
@@ -37,14 +40,17 @@ function App() {
     fetchData();
   }, []);
 
-  const onAddToCart = (obj) => {
+  const onAddToCart = async (obj) => {
     try {
-      if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
-        axios.delete(`http://localhost:3001/cart/${obj.id}`);
-        setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)));
+      const findItem = cartItems.find((item) => Number(item.parentId) === Number(obj.id))
+      if (findItem) {
+        setCartItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)));
+        //axios.delete(`http://localhost:3001/cart/${obj.id}`);
+        axios.delete(`https://6447bb067bb84f5a3e47276f.mockapi.io/cart/${findItem.id}`);
       } else {
-        axios.post('http://localhost:3001/cart', obj);
         setCartItems((prev) => [...prev, obj])
+        //axios.post('http://localhost:3001/cart', obj);
+        axios.post('https://6447bb067bb84f5a3e47276f.mockapi.io/cart', obj);
       }
     } catch (error) {
       alert('Ошибка при добавлении в корзину')
@@ -53,8 +59,9 @@ function App() {
 
   const onRemoveItem = (id) => {
     try {
-      axios.delete(`http://localhost:3001/cart/${id}`);
-      setCartItems((prev) => prev.filter((item) => item.id !== id));
+      //axios.delete(`http://localhost:3001/cart/${id}`);
+      axios.delete(`https://6447bb067bb84f5a3e47276f.mockapi.io/cart/${id}`);
+      setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(id)));
     } catch (error) {
       alert('Ошибка при удалении из корзины')
     }
@@ -63,10 +70,13 @@ function App() {
   const onAddToFavorite = async (obj) => {
     try {
       if (favorites.find((favObj) => Number(favObj.id) === Number(obj.id))) {
-        axios.delete(`http://localhost:3001/favorites/${obj.id}`);
-        //setFavorites(prev => prev.filter(item => Number(item.id) !== Number(obj.id)));
+        //axios.delete(`http://localhost:3001/favorites/${obj.id}`);
+        axios.delete(`https://644feeb1b61a9f0c4d2f2f9d.mockapi.io/favorites/${obj.id}`);
+        //Мгновенно удаляет объект из Избранного
+        setFavorites(prev => prev.filter(item => Number(item.id) !== Number(obj.id)));
       } else {
-        const { data } = await axios.post('http://localhost:3001/favorites', obj);
+        //const { data } = await axios.post('http://localhost:3001/favorites', obj);
+        const { data } = await axios.post('https://644feeb1b61a9f0c4d2f2f9d.mockapi.io/favorites', obj);
         setFavorites((prev) => [...prev, data]);
       }
     } catch (error) {
@@ -79,7 +89,7 @@ function App() {
   };
 
   const isItemAdded = (id) => {
-    return cartItems.some((obj) => Number(obj.id) === Number(id))
+    return cartItems.some((obj) => Number(obj.parentId) === Number(id))
   }
  
   return (
@@ -90,7 +100,7 @@ function App() {
         <Header onClickCart={() => setCartOpened(true)} />
 
         <Routes>
-          <Route path="/" exact element={
+          <Route path="React-sneakers" exact element={
           <Home 
           items={items} 
           cartItems={cartItems}
@@ -102,11 +112,11 @@ function App() {
           isLoading={isLoading} />
           } />
 
-          <Route path="/favorites" element={
+          <Route path="React-sneakers/favorites" element={
           <Favorites />
           } />
 
-          <Route path="/orders" element={
+          <Route path="React-sneakers/orders" element={
             <Orders />
 
           } />
