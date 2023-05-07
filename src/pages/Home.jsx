@@ -29,7 +29,7 @@ function Home({
     return (
         <div className="content p-40">
             <div className="d-flex mb-40">
-                <img width={960} height={300} src="img/slider1.svg" alt="Slider"/>
+                <img className="slider" src="img/slider1.svg" alt="Slider"/>
             </div>
             <div className="d-flex align-center justify-between mb-40 pr-30">
                 <h1>{searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все кроссовки'}</h1>
